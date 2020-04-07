@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gearcal</title>
+        <meta charset="utf-8">
+        <script src="Gear.js"></script>
+    </head>
+    
+    <body>
+        <h1>歯車諸元計算ソフト</h1>
+        <p>
+            歯車の諸元を計算します。
+        </p>
+	<select id="word">
+	  <option value="none">一段減速機</option>
+	  <option value="aoba">二段減速機</option>
+	  <option value="miyagino">三段減速機</option>
+	</select>
+        <form name="inputpal">
+	    <label for="z1">入力歯車の歯数:</label>
+            <input type="number" step="any" name="z1" value=""><br>
+	    <label for="z2">出力歯車の歯数:</label>
+            <input type="number" step="any" name="z2" value=""><br>
+	    <label for="z1">モジュール:</label>
+            <input type="number" step="any" name="m" value=""><br>
+	    <label for="z1">中心距離:</label>
+            <input type="number" step="any" name="dis" value=""><br>
+            <input type="button" value="計算" onclick="cal()"><br>
+        </form>
+        
+        <br>
+        
+        <div id="result1"></div>  <!-- 結果が出力されるdiv要素 -->
+        <br>
+        <a id="DLlink" download="result.txt"><button type="button">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+      
+        <script>
+	
+            var DLpartv = document.getElementById("DLlink").style;    
+            DLpartv.visibility = "hidden";                             /*結果をDLするボタンを非表示*/
+      
+            function cal(){
+            var z1 = Number(document.inputpal.z1.value);           /*テキストボックスの値をnum型に変換(計算でstr型として処理されるのを防ぐため)*/
+            var z2 = Number(document.inputpal.z2.value);
+            var m = Number(document.inputpal.m.value);
+            var dis = Number(document.inputpal.dis.value);
+	  
+            var write = document.getElementById("result1");
+	  
+            write.innerHTML = "速比:"+Gear.u(z1,z2)+"<br>";
+            write.insertAdjacentHTML("beforeend","入力歯車の基準ピッチ円直径:"+Gear.d(m,z1)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","出力歯車の基準ピッチ円直径:"+Gear.d(m,z2)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","入力歯車の噛み合いピッチ円直径:"+Gear.db(z1,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","出力歯車の噛み合いピッチ円直径:"+Gear.db(z2,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","噛み合い圧力角:"+Gear.ab(m,z1,z2,dis)+"[deg]<br>");
+            write.insertAdjacentHTML("beforeend","入力歯車の公差単位:"+Gear.W(m,z1)+"[μm]<br>");
+            write.insertAdjacentHTML("beforeend","出力歯車の公差単位:"+Gear.W(m,z2)+"[μm]<br>");
+            write.insertAdjacentHTML("beforeend","最大バックラッシ:"+Gear.cmax(m,z1,z2)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","最小バックラッシ:"+Gear.cmin(m,z1,z2)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","ピッチ円上バックラッシ:"+Gear.cn(m,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","中心距離増加係数"+Gear.y(m,z1,z2,dis)+"<br>");
+            write.insertAdjacentHTML("beforeend","入力歯車の歯先円直径:"+Gear.dk(m,z1,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","出力歯車の歯車先円直径:"+Gear.dk(m,z2,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","入力歯車の基礎円半径:"+Gear.rg(m,z1)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","出力歯車の基礎円半径:"+Gear.rg(m,z2)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Gear.L(m,z1,z2,dis)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","法線ピッチ:"+Gear.te(m)+"[mm]<br>");
+            write.insertAdjacentHTML("beforeend","噛み合い率:"+Gear.mrt(m,z1,z2,dis)+"<br>");
+
+            var allresult = write.innerText;                         /*出力された結果を読み込み*/
+            DLpartv.visibility="visible";                            /*結果をDLするボタンを表示*/
+
+            var blob = new Blob([allresult],{"type":"text/plain"});  /*結果をテキストデータのバイナリに変換*/
+            var url = URL.createObjectURL(blob);                     /*バイナリファイルのURLを作成*/
+            document.getElementById("DLlink").href=url;              /*結果をDLするボタンにhref属性を付与し作成したURLを与える*/
+
+            }
+      
+        </script>    
+
+    </body>
+  
+</html>
