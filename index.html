@@ -4,26 +4,29 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--CSS -->
+        <!--CSS for Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-        <!--JS -->
+        <!--JS for Bootstrap -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!--CSS fo Customize -->
+	<link rel="stylesheet" href="style.css">
         <title>Gearcal</title>
         <meta charset="utf-8">
         <script src="Gear.js"></script>
     </head>
     
     <body>
+        <div class="container-fluid my-container">
         <h1>歯車諸元計算ソフト</h1>
         <p>
             歯車の諸元を計算します。
         </p>
-	<select id="word">
-	  <option value="none">一段減速機</option>
-	  <option value="aoba">二段減速機</option>
-	  <option value="miyagino">三段減速機</option>
-	</select>
+	<!-- <select id="spec">
+	  <option value="1">一段減速機</option>
+	  <option value="2">二段減速機</option>
+	  <option value="3">三段減速機</option>
+	</select> -->
         <form name="inputpal">
 	    <label for="z1">入力歯車の歯数:</label>
             <input type="number" step="any" name="z1" value=""><br>
@@ -37,24 +40,26 @@
         </form>
         
         <br>
-        
         <div id="result1"></div>  <!-- 結果が出力されるdiv要素 -->
         <br>
         <a id="DLlink" download="result.txt"><button type="button">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
-      
+	</div>
+	</div>
         <script>
 	
             var DLpartv = document.getElementById("DLlink").style;    
             DLpartv.visibility = "hidden";                             /*結果をDLするボタンを非表示*/
-      
-            function cal(){
-            var z1 = Number(document.inputpal.z1.value);           /*テキストボックスの値をnum型に変換(計算でstr型として処理されるのを防ぐため)*/
+
+	  
+          function cal(){  
+
+	    var z1 = Number(document.inputpal.z1.value);           /*テキストボックスの値をnum型に変換(計算でstr型として処理されるのを防ぐため)*/
             var z2 = Number(document.inputpal.z2.value);
             var m = Number(document.inputpal.m.value);
             var dis = Number(document.inputpal.dis.value);
 	  
             var write = document.getElementById("result1");
-	  
+
             write.innerHTML = "速比:"+Gear.u(z1,z2)+"<br>";
             write.insertAdjacentHTML("beforeend","入力歯車の基準ピッチ円直径:"+Gear.d(m,z1)+"[mm]<br>");
             write.insertAdjacentHTML("beforeend","出力歯車の基準ピッチ円直径:"+Gear.d(m,z2)+"[mm]<br>");
