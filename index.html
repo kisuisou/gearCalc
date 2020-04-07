@@ -23,11 +23,7 @@
         <p>
             歯車の諸元を計算します。
         </p>
-	<!-- <select id="spec">
-	  <option value="1">一段減速機</option>
-	  <option value="2">二段減速機</option>
-	  <option value="3">三段減速機</option>
-	</select> -->
+
         <form name="inputpal" class="form-group">
 	    <label for="z1">入力歯車の歯数:</label>
             <input type="number" step="any" name="z1" value=""><br>
@@ -62,25 +58,25 @@
 	  
             var write = document.getElementById("result1");
 
-            write.innerHTML = "速比:"+Gear.u(z1,z2)+"<br>";
-            write.insertAdjacentHTML("beforeend","入力歯車の基準ピッチ円直径:"+Gear.d(m,z1)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","出力歯車の基準ピッチ円直径:"+Gear.d(m,z2)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","入力歯車の噛み合いピッチ円直径:"+Gear.db(z1,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","出力歯車の噛み合いピッチ円直径:"+Gear.db(z2,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","噛み合い圧力角:"+Gear.ab(m,z1,z2,dis)+"[deg]<br>");
-            write.insertAdjacentHTML("beforeend","入力歯車の公差単位:"+Gear.W(m,z1)+"[μm]<br>");
-            write.insertAdjacentHTML("beforeend","出力歯車の公差単位:"+Gear.W(m,z2)+"[μm]<br>");
-            write.insertAdjacentHTML("beforeend","最大バックラッシ:"+Gear.cmax(m,z1,z2)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","最小バックラッシ:"+Gear.cmin(m,z1,z2)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","ピッチ円上バックラッシ:"+Gear.cn(m,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","中心距離増加係数"+Gear.y(m,z1,z2,dis)+"<br>");
-            write.insertAdjacentHTML("beforeend","入力歯車の歯先円直径:"+Gear.dk(m,z1,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","出力歯車の歯車先円直径:"+Gear.dk(m,z2,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","入力歯車の基礎円半径:"+Gear.rg(m,z1)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","出力歯車の基礎円半径:"+Gear.rg(m,z2)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Gear.L(m,z1,z2,dis)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","法線ピッチ:"+Gear.te(m)+"[mm]<br>");
-            write.insertAdjacentHTML("beforeend","噛み合い率:"+Gear.mrt(m,z1,z2,dis)+"<br>");
+              write.innerHTML = "速比:"+Math.round(Gear.u(z1,z2)*10e5)/10e5+"<br>";
+              write.insertAdjacentHTML("beforeend","入力歯車の基準ピッチ円直径:"+Math.round(Gear.d(m,z1)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","出力歯車の基準ピッチ円直径:"+Math.round(Gear.d(m,z2)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","入力歯車の噛み合いピッチ円直径:"+Math.round(Gear.db(z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","出力歯車の噛み合いピッチ円直径:"+Math.round(Gear.db(z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","噛み合い圧力角:"+Math.round(Gear.ab(m,z1,z2,dis)*10e5)/10e5+"[deg]<br>");
+              write.insertAdjacentHTML("beforeend","入力歯車の公差単位:"+Math.round(Gear.W(m,z1)*10e5)/10e5+"[μm]<br>");
+              write.insertAdjacentHTML("beforeend","出力歯車の公差単位:"+Math.round(Gear.W(m,z2)*10e5)/10e5+"[μm]<br>");
+              write.insertAdjacentHTML("beforeend","最大バックラッシ:"+Math.round(Gear.cmax(m,z1,z2)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","最小バックラッシ:"+Math.round(Gear.cmin(m,z1,z2)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","ピッチ円上バックラッシ:"+Math.round(Gear.cn(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","中心距離増加係数"+Math.round(Gear.y(m,z1,z2,dis)*10e5)/10e5+"<br>");
+              write.insertAdjacentHTML("beforeend","入力歯車の歯先円直径:"+Math.round(Gear.dk(m,z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","出力歯車の歯車先円直径:"+Math.round(Gear.dk(m,z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","入力歯車の基礎円半径:"+Math.round(Gear.rg(m,z1)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","出力歯車の基礎円半径:"+Math.round(Gear.rg(m,z2)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Math.round(Gear.L(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","法線ピッチ:"+Math.round(Gear.te(m)*10e5)/10e5+"[mm]<br>");
+              write.insertAdjacentHTML("beforeend","噛み合い率:"+Math.round(Gear.mrt(m,z1,z2,dis)*10e5)/10e5+"<br>");
 
             var allresult = write.innerText;                         /*出力された結果を読み込み*/
             DLpartv.visibility="visible";                            /*結果をDLするボタンを表示*/
