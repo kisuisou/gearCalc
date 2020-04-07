@@ -18,7 +18,8 @@
     
     <body>
         <div class="container-fluid my-container">
-        <h1>歯車諸元計算ソフト</h1>
+	<br>
+        <h1 class="myh1">歯車諸元計算ソフト</h1>
         <p>
             歯車の諸元を計算します。
         </p>
@@ -27,7 +28,7 @@
 	  <option value="2">二段減速機</option>
 	  <option value="3">三段減速機</option>
 	</select> -->
-        <form name="inputpal">
+        <form name="inputpal" class="form-group">
 	    <label for="z1">入力歯車の歯数:</label>
             <input type="number" step="any" name="z1" value=""><br>
 	    <label for="z2">出力歯車の歯数:</label>
@@ -36,13 +37,14 @@
             <input type="number" step="any" name="m" value=""><br>
 	    <label for="z1">中心距離:</label>
             <input type="number" step="any" name="dis" value=""><br>
-            <input type="button" value="計算" onclick="cal()"><br>
+            <input type="button" class="btn btn-default" value="計算" onclick="cal()"><br>
         </form>
         
         <br>
         <div id="result1"></div>  <!-- 結果が出力されるdiv要素 -->
-        <br>
-        <a id="DLlink" download="result.txt"><button type="button">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+	<br>
+        <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+	<br>
 	</div>
 	</div>
         <script>

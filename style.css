@@ -7,6 +7,16 @@
  .my-container{
      background-color: white;
      border: solid 1px gray;
-     max-width: 1200px;
+     max-width: 900px;
      margin-top: 30px;
+     padding-bottom:50px;
+     text-align:center;
     }
+.myh1{
+      padding-left: 10px;
+      border-bottom: solid 1px #043c78;
+}
+
+#result1{
+    padding:20px 40px;
+}
