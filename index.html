@@ -11,9 +11,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!--CSS fo Customize -->
 	<link rel="stylesheet" href="style.css">
+	
         <title>Gearcal</title>
-        <meta charset="utf-8">
-        <script src="Gear.js"></script>
+	
+        <script src="Gear.js"></script>  <!--歯車計算用jsファイル-->
     </head>
     
     <body>
@@ -21,9 +22,12 @@
 	<br>
         <h1 class="myh1">歯車諸元計算ソフト</h1>
         <p>
-            歯車の諸元を計算します。
+	  <br>
+          標準平歯車の諸元を計算します。
+	  <br>
+	  バックラッシが適正となるよう中心距離を設定してください。
         </p>
-
+	<br>
         <form name="inputpal" class="form-group">
 	    <label for="z1">入力歯車の歯数:</label>
             <input type="number" step="any" name="z1" value=""><br>
@@ -33,13 +37,13 @@
             <input type="number" step="any" name="m" value=""><br>
 	    <label for="z1">中心距離:</label>
             <input type="number" step="any" name="dis" value=""><br>
-            <input type="button" class="btn btn-default" value="計算" onclick="cal()"><br>
+            <input type="button" class="btn btn-default" value="計算" onclick="cal()">
+	    <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
         </form>
         
         <br>
         <div id="result1"></div>  <!-- 結果が出力されるdiv要素 -->
-	<br>
-        <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+
 	<br>
 	</div>
 	</div>
