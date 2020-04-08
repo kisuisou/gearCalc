@@ -24,4 +24,9 @@
     text-align:center;
 }
 .my-form{
+    margin:0 auto;
+    width:340px;
+}
+#introp{
+    text-align:center;
 }

@@ -21,14 +21,14 @@
         <div class="container-fluid my-container">
 	<br>
         <h1 class="myh1">歯車諸元計算ソフト</h1>
-        <p>
+        <p id="introp">
 	  <br>
           標準平歯車の諸元を計算します。
 	  <br>
 	  バックラッシが適正となるよう中心距離を設定してください。
         </p>
 	<br>
-        <form name="inputpal" class="form-group">
+        <form name="inputpal" class="my-form">
 	    <label for="z1">入力歯車の歯数:</label>
             <input type="number" step="any" name="z1" value=""><br>
 	    <label for="z2">出力歯車の歯数:</label>
@@ -37,7 +37,7 @@
             <input type="number" step="any" name="m" value=""><br>
 	    <label for="z1">中心距離:</label>
             <input type="number" step="any" name="dis" value=""><br>
-            <input type="button" class="btn btn-default" value="計算" onclick="cal()">
+	    <input type="button" class="btn btn-default" value="計算" onclick="cal()">
 	    <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
         </form>
         
