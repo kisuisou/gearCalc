@@ -28,15 +28,15 @@
 	  バックラッシが適正となるよう中心距離を設定してください。
         </p>
 	<br>
-        <form name="inputpal" class="my-form">
-	    <label for="z1">入力歯車の歯数:</label>
-            <input type="number" step="any" name="z1" value=""><br>
-	    <label for="z2">出力歯車の歯数:</label>
-            <input type="number" step="any" name="z2" value=""><br>
-	    <label for="z1">モジュール:</label>
-            <input type="number" step="any" name="m" value=""><br>
-	    <label for="z1">中心距離:</label>
-            <input type="number" step="any" name="dis" value=""><br>
+        <form name="inputpal" class="form-group my-form form-inline">
+	    <label for="z1">入力歯車の歯数</label>
+            <input class="form-control my-input" type="number" step="any" name="z1" value=""><br>
+	    <label for="z2">出力歯車の歯数</label>
+            <input class="form-control my-input" type="number" step="any" name="z2" value=""><br>
+	    <label for="z1">モジュール</label>
+            <input class="form-control my-input" type="number" step="any" name="m" value=""><br>
+	    <label for="z1">中心距離</label>
+            <input class="form-control my-input" type="number" step="any" name="dis" value=""><br>
 	    <input type="button" class="btn btn-default" value="計算" onclick="cal()">
 	    <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
         </form>
@@ -81,6 +81,11 @@
               write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Math.round(Gear.L(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
               write.insertAdjacentHTML("beforeend","法線ピッチ:"+Math.round(Gear.te(m)*10e5)/10e5+"[mm]<br>");
               write.insertAdjacentHTML("beforeend","噛み合い率:"+Math.round(Gear.mrt(m,z1,z2,dis)*10e5)/10e5+"<br>");
+	      if (Gear.isCnNG(m,z1,z2,dis)){
+		  write.insertAdjacentHTML("beforeend",'<p id="CnNG">バックラッシが不適です</p>');
+	      }
+
+
 
             var allresult = write.innerText;                         /*出力された結果を読み込み*/
             DLpartv.visibility="visible";                            /*結果をDLするボタンを表示*/

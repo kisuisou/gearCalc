@@ -44,6 +44,17 @@
 	  },
 	  mrt: function(m,z1,z2,dis){
 	      return this.L(m,z1,z2,dis)/this.te(m);
+	  },
+	  isCnNG: function(m,z1,z2,dis){
+	      var Cn = this.cn(m,z1,z2,dis);
+	      var Cmax = this.cmax(m,z1,z2);
+	      var Cmin = this.cmin(m,z1,z2);
+	      if(!(Cn<=Cmax && Cn>=Cmin)){
+		  return true;
+	      }
+	      else{
+		  return false;
+	      }
 	  }
 	  
       }
