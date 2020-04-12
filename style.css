@@ -1,4 +1,4 @@
-@charset "UTF-8";
+`@charset "UTF-8";
 
  body{
       font-family: "Meiryo UI";
@@ -20,6 +20,21 @@
     width:340px;
     margin:0 auto;
 }
+#result2{
+    width:340px;
+    margin:0 auto;
+}
+#result3{
+    width:340px;
+    margin:0 auto;
+}
+#result4{
+    width:340px;
+    margin:0 auto;
+}
+#total{
+    text-align:center;
+}
 #DLpart{
     text-align:center;
 }
@@ -39,4 +54,12 @@
 
 #CnOK{
     color:green;
+}
+.my-dropdown{
+    margin:0 auto;
+    width:140px;
+    
+}
+.my-h4{
+    text-align:center;
 }
