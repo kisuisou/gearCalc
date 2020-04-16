@@ -9,10 +9,11 @@ The night is long that never finds the day.
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--CSS for Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!--JS for Bootstrap -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<!--CSS for Customize -->
 	<link rel="stylesheet" href="style.css">
 	
@@ -22,6 +23,7 @@ The night is long that never finds the day.
     </head>
     
     <body>
+        
         <div class="container-fluid my-container">
 	<br>
         <h1 class="myh1">歯車諸元計算ソフト</h1>
@@ -39,11 +41,11 @@ The night is long that never finds the day.
 	  <span id="speed"> 一段減速機</span>    <!--現在の変速機の段数を表示するspan-->
 	    <span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	    <li><a onclick="selectspeed(1)">一段減速機</a></li>
-	    <li><a onclick="selectspeed(2)">二段減速機</a></li>
-	    <li><a onclick="selectspeed(3)">三段減速機</a></li>
-	    <li><a onclick="selectspeed(4)">四段減速機</a></li>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	    <a class="dropdown-item" onclick="selectspeed(1)">一段減速機</a>
+	    <a class="dropdown-item" onclick="selectspeed(2)">二段減速機</a>
+	    <a class="dropdown-item" onclick="selectspeed(3)">三段減速機</a>
+	    <a class="dropdown-item" onclick="selectspeed(4)">四段減速機</a>
 	  </ul>
 	</div>
 	
@@ -61,10 +63,13 @@ The night is long that never finds the day.
             <input class="form-control my-input" type="number" step="any" id="dis1" value=""><br>
 	    </div>
 	    <br>
-	    <input type="button" class="btn btn-default" value="計算" onclick="cal()">
-	    <a id="DLlink" download="result.txt"><button type="button" class="btn btn-info">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
-        </form>
 	
+        </form>
+
+	<div id="btnarea">
+	<button type="button" class="btn btn-dark" onclick="cal()">計算</button>
+	<a id="DLlink" download="result.txt"><button type="button" class="btn btn btn-outline-dark">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+	</div>
         
         <br>
 	
@@ -79,6 +84,7 @@ The night is long that never finds the day.
 	<br>
 	</div>
 	</div>
+	
         <script>
 	
           var DLpartv = document.getElementById("DLlink").style;    
