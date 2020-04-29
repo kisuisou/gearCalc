@@ -13,7 +13,7 @@ body{
     background-color: #f5f5f5;
     padding-left: 10px;
     margin:0 auto;
-    border-left: solid 4px #343a40;
+    border-left: solid 6px #343a40;
     border-bottom: solid 1px #343a40;
     text-align:left;
 }
@@ -45,6 +45,7 @@ body{
 #introp{
 }
 .my-input{
+    display:inline;
     margin:0 auto;
     width:100px;
  
@@ -57,7 +58,6 @@ body{
     color:green;
 }
 .my-dropdown{
-    margin:0 auto;
     width:140px;
     
 }
@@ -66,4 +66,8 @@ body{
     margin-top:30px;
 }
 #Gearform{
+}
+.my-h5{
+    margin-bottom:20px;
+    border-bottom: solid 1px #343a40;
 }

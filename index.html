@@ -10,7 +10,11 @@
     
     <!--CSS for Customize -->
     <link rel="stylesheet" type=text/css href="style.css">
-    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
     <title>gearCalc</title>
     
     <script src="Gear.js"></script>  <!--歯車計算用jsファイル-->
@@ -52,21 +56,21 @@
       <br>
       
       <form class="form-group my-form" id="Gearform">       <!--ページを読み込む際に最初に表示されるform(selectspeed(s)によって適宜編集される)-->
-	<div class="row">
+	<div class="form-row">
 	  <div class="col-md-3">
-	    <label for="z1">入力歯車の歯数</label>
-            <input class="form-control my-input" type="number" step="any" id="z1" value="">
+	    <label for="z1"><b>原動車の歯数:</b></label>
+            <input class="form-control my-input" type="number" step="1" id="z1" value="">
 	  </div>
 	  <div class="col-md-3">
-	    <label for="z2">出力歯車の歯数</label>
-            <input class="form-control my-input" type="number" step="any" id="z2" value="">
+	    <label for="z2"><b>従動車の歯数:</b></label>
+            <input class="form-control my-input" type="number" step="1" id="z2" value="">
 	  </div>
 	  <div class="col-md-3">
-	    <label for="m1">モジュール</label>
+	    <label for="m1"><b>モジュール:</b></label>
             <input class="form-control my-input" type="number" step="any" id="m1" value="">
 	  </div>
 	  <div class="col-md-3">
-	    <label for="dis1">中心距離</label>
+	    <label for="dis1"><b>中心距離:</b></label>
             <input class="form-control my-input" type="number" step="any" id="dis1" value="">
 	  </div>
 	</div>
@@ -76,7 +80,7 @@
       
       <div id="btnarea">
 	<button type="button" class="btn btn-dark" onclick="cal()">計算</button>
-	<a id="DLlink" download="result.txt"><button type="button" class="btn btn btn-outline-dark">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
+	<a id="DLlink" download="result.txt"><button type="button" class="btn btn btn-outline-dark" id="DLbutton" disabled>結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
       </div>
       
       <br>
@@ -93,125 +97,125 @@
       
       
       <script>
-	  
-          var DLpartv = document.getElementById("DLlink").style;    
-          DLpartv.visibility = "hidden";                             /*結果をDLするボタンを非表示*/
-	  
-	  var speed=1;                                                /*減速機の段数を示すグローバル変数(初期値は1でdropdownにて変更)*/
-	  
-	  
-          function cal(){                                             /*計算buttonが押されたときに実行される関数*/
-	      
-	      document.getElementById("result1").innerHTML=("");     /*結果のdivを一旦初期化*/
-	      document.getElementById("result2").innerHTML=("");
-	      document.getElementById("result3").innerHTML=("");
-	      document.getElementById("result4").innerHTML=("");
-	      
-	      var totalU=1;                                          /*全減速比を1で初期化*/
-	      
-	      for(var i=1;i<=speed;i++){                             /*各段ごとに計算&出力をするためforで回す*/
-		  
-		  var z1 = Number(document.getElementById("z"+(2*i-1)).value);           /*テキストボックスの値をnum型に変換(計算でstr型として処理されるのを防ぐため)*/
-		  var z2 = Number(document.getElementById("z"+(2*i)).value);
-		  var m = Number(document.getElementById("m"+i).value);
-		  var dis = Number(document.getElementById("dis"+i).value);
-		  
-		  var write = document.getElementById("result"+i);
-		  
-		  write.innerHTML = "速比:"+Math.round(Gear.u(z1,z2)*10e5)/10e5+"<br>";  /*各値の計算と出力(Gear.jsのGearオブジェクトを使用)*/
-		  totalU *= Gear.u(z1,z2); /*全減速比(初期値1に現在の段の即火をかけ合わせる)*/
-		  write.insertAdjacentHTML("beforeend","入力歯車の基準ピッチ円直径:"+Math.round(Gear.d(m,z1)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","出力歯車の基準ピッチ円直径:"+Math.round(Gear.d(m,z2)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","入力歯車の噛み合いピッチ円直径:"+Math.round(Gear.db(z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","出力歯車の噛み合いピッチ円直径:"+Math.round(Gear.db(z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","噛み合い圧力角:"+Math.round(Gear.ab(m,z1,z2,dis)*10e5)/10e5+"[deg]<br>");
-		  write.insertAdjacentHTML("beforeend","入力歯車の公差単位:"+Math.round(Gear.W(m,z1)*10e5)/10e5+"[μm]<br>");
-		  write.insertAdjacentHTML("beforeend","出力歯車の公差単位:"+Math.round(Gear.W(m,z2)*10e5)/10e5+"[μm]<br>");
-		  write.insertAdjacentHTML("beforeend","最大バックラッシ:"+Math.round(Gear.cmax(m,z1,z2)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","最小バックラッシ:"+Math.round(Gear.cmin(m,z1,z2)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","ピッチ円上バックラッシ:"+Math.round(Gear.cn(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","中心距離増加係数"+Math.round(Gear.y(m,z1,z2,dis)*10e5)/10e5+"<br>");
-		  write.insertAdjacentHTML("beforeend","入力歯車の歯先円直径:"+Math.round(Gear.dk(m,z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","出力歯車の歯車先円直径:"+Math.round(Gear.dk(m,z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","入力歯車の基礎円半径:"+Math.round(Gear.rg(m,z1)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","出力歯車の基礎円半径:"+Math.round(Gear.rg(m,z2)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Math.round(Gear.L(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","法線ピッチ:"+Math.round(Gear.te(m)*10e5)/10e5+"[mm]<br>");
-		  write.insertAdjacentHTML("beforeend","噛み合い率:"+Math.round(Gear.mrt(m,z1,z2,dis)*10e5)/10e5+"<br>");
-		  
-		  if (Gear.isCnNG(m,z1,z2,dis)){/*バックラッシが適正か判断*/
-	              write.insertAdjacentHTML("beforeend",'<p id="CnNG">バックラッシが不適です</p>');
-		  }
-		  else{
-		      write.insertAdjacentHTML("beforeend",'<p id="CnOK">バックラッシは適正です</p>');
-		  }
-		  
-		  
-		  
-	      }
-	      
-	      document.getElementById("total").innerHTML=("全減速比:"+Math.round(totalU*10e5)/10e5+"(1/u:"+Math.round(1/totalU*10e3)/10e3+")");      /*全減速比を出力*/
-              var allresult = document.getElementById("result").innerText;                         /*出力された結果を読み込み*/
-              DLpartv.visibility="visible";                                                        /*結果をDLするボタンを表示*/
-	      
-              var blob = new Blob([allresult],{"type":"text/plain"});                              /*結果をテキストデータのバイナリに変換*/
-              var url = URL.createObjectURL(blob);                                                 /*バイナリファイルのURLを作成*/
-              document.getElementById("DLlink").href=url;                                          /*結果をDLするボタンにhref属性を付与し作成したURLを与える*/
-          }
-	  
-	  function selectspeed(s){                                                                 /*段数選択によって発動する関数*/
-	      
-	      speed = s;                                                                           /*グローバル変数speedに選択された減速機の段数を代入*/
-	      
-	      var write = document.getElementById("speed");
-	      var writeform = document.getElementById("Gearform");
-	      
-	      switch(s){                                                                           /* 現在選択している減速段数を表示し段数によってformを編集する*/
-	      case 1:
-		  write.innerHTML=("一段減速機");
-		  break;
-	      case 2:
-		  write.innerHTML=("二段減速機");
-		  break;
-	      case 3:
-		  write.innerHTML=("三段減速機");
-		  break;
-	      case 4:
-		  write.innerHTML=("四段減速機");
-		  break;
-	      }
-	      
-	      writeform.innerHTML=("");  /*入力フォームを一度初期化*/
-	      
-	      for(var i=1 ; i<=s ; i++){ /*forでformを段数に応じて生成*/
-		  if(s!=1){
-		      writeform.insertAdjacentHTML("beforeend","<h4 class='my-h4'>"+tokanzi(i)+"段目"+"</h4>");
-		  }
-		  var forform =
-		      '<label for="z'+(2*i-1)+'">入力歯車の歯数</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i-1)+'" value="">'+
-		      '<label for="z'+(2*i)+'">出力歯車の歯数</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i)+'" value="">'+
-		      '<label for="m'+i+'">モジュール</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="m'+i+'" value="">'+
-		      '<label for="dis'+i+'">中心距離</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="dis'+i+'" value="">';
-		  writeform.insertAdjacentHTML("beforeend",forform);
-	      }
-	  }
-	  
-	  function tokanzi(befText){
-	      var txt = new Array("〇","一","二","三","四","五","六","七","八","九");
-	      return txt[befText];
-	  }
-	  
-          </script>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+/*	$(function() {
+	    
+	    //テキストボックスに変更を加えたら発動
+	    $('input[type="number"]').change(function() {
+		$(".my-input").addClass("is-valid");
+		$(".col-md-3").append('<div class="valid-feedback my-feedback">Looks good!</div>');
+	    });
+	}); */
 	
-</body>
-
+	var speed=1;                                                /*減速機の段数を示すグローバル変数(初期値は1でdropdownにて変更)*/
+	
+	
+        function cal(){                                             /*計算buttonが押されたときに実行される関数*/
+	    
+	    document.getElementById("result1").innerHTML=("");     /*結果のdivを一旦初期化*/
+	    document.getElementById("result2").innerHTML=("");
+	    document.getElementById("result3").innerHTML=("");
+	    document.getElementById("result4").innerHTML=("");
+	    
+	    var totalU=1;                                          /*全減速比を1で初期化*/
+	    
+	    for(var i=1;i<=speed;i++){                             /*各段ごとに計算&出力をするためforで回す*/
+		
+		var z1 = Number(document.getElementById("z"+(2*i-1)).value);           /*テキストボックスの値をnum型に変換(計算でstr型として処理されるのを防ぐため)*/
+		var z2 = Number(document.getElementById("z"+(2*i)).value);
+		var m = Number(document.getElementById("m"+i).value);
+		var dis = Number(document.getElementById("dis"+i).value);
+		
+		var write = document.getElementById("result"+i);
+		
+		write.innerHTML = "速比:"+Math.round(Gear.u(z1,z2)*10e5)/10e5+"<br>";  /*各値の計算と出力(Gear.jsのGearオブジェクトを使用)*/
+		totalU *= Gear.u(z1,z2); /*全減速比(初期値1に現在の段の即火をかけ合わせる)*/
+		write.insertAdjacentHTML("beforeend","原動車の基準ピッチ円直径:"+Math.round(Gear.d(m,z1)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","従動車の基準ピッチ円直径:"+Math.round(Gear.d(m,z2)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","原動車の噛み合いピッチ円直径:"+Math.round(Gear.db(z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","従動車の噛み合いピッチ円直径:"+Math.round(Gear.db(z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","噛み合い圧力角:"+Math.round(Gear.ab(m,z1,z2,dis)*10e5)/10e5+"[deg]<br>");
+		write.insertAdjacentHTML("beforeend","原動車の公差単位:"+Math.round(Gear.W(m,z1)*10e5)/10e5+"[μm]<br>");
+		write.insertAdjacentHTML("beforeend","従動車の公差単位:"+Math.round(Gear.W(m,z2)*10e5)/10e5+"[μm]<br>")
+		write.insertAdjacentHTML("beforeend","最大バックラッシ:"+Math.round(Gear.cmax(m,z1,z2)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","最小バックラッシ:"+Math.round(Gear.cmin(m,z1,z2)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","ピッチ円上バックラッシ:"+Math.round(Gear.cn(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","中心距離増加係数"+Math.round(Gear.y(m,z1,z2,dis)*10e5)/10e5+"<br>");
+		write.insertAdjacentHTML("beforeend","原動車の歯先円直径:"+Math.round(Gear.dk(m,z1,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","従動車の歯車先円直径:"+Math.round(Gear.dk(m,z2,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","原動車の基礎円半径:"+Math.round(Gear.rg(m,z1)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","従動車の基礎円半径:"+Math.round(Gear.rg(m,z2)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","噛み合い長さ:"+Math.round(Gear.L(m,z1,z2,dis)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","法線ピッチ:"+Math.round(Gear.te(m)*10e5)/10e5+"[mm]<br>");
+		write.insertAdjacentHTML("beforeend","噛み合い率:"+Math.round(Gear.mrt(m,z1,z2,dis)*10e5)/10e5+"<br>");
+		
+		if (Gear.isCnNG(m,z1,z2,dis)){/*バックラッシが適正か判断*/
+	            write.insertAdjacentHTML("beforeend",'<p id="CnNG">バックラッシが不適です</p>');
+		}
+		else{
+		    write.insertAdjacentHTML("beforeend",'<p id="CnOK">バックラッシは適正です</p>');
+		}
+		
+		
+		
+	    }
+	    
+	    document.getElementById("total").innerHTML=("全減速比:"+Math.round(totalU*10e5)/10e5+"(1/u:"+Math.round(1/totalU*10e3)/10e3+")");      /*全減速比を出力*/
+            var allresult = document.getElementById("result").innerText;                         /*出力された結果を読み込み*/
+	    $('#DLbutton').prop('disabled', false);                                                        /*結果をDLするボタンを表示*/
+	    
+            var blob = new Blob([allresult],{"type":"text/plain"});                              /*結果をテキストデータのバイナリに変換*/
+            var url = URL.createObjectURL(blob);                                                 /*バイナリファイルのURLを作成*/
+            document.getElementById("DLlink").href=url;                                          /*結果をDLするボタンにhref属性を付与し作成したURLを与える*/
+        }
+	
+	function selectspeed(s){                                                                 /*段数選択によって発動する関数*/
+	    
+	    speed = s;                                                                           /*グローバル変数speedに選択された減速機の段数を代入*/
+	    
+	    var write = document.getElementById("speed");
+	    var writeform = document.getElementById("Gearform");
+	    
+	    switch(s){                                                                           /* 現在選択している減速段数を表示し段数によってformを編集する*/
+	    case 1:
+		write.innerHTML=("一段減速機");
+		break;
+	    case 2:
+		write.innerHTML=("二段減速機");
+		break;
+	    case 3:
+		write.innerHTML=("三段減速機");
+		break;
+	    case 4:
+		write.innerHTML=("四段減速機");
+		break;
+	    }
+	    
+	    writeform.innerHTML=("");  /*入力フォームを一度初期化*/
+	    
+	    for(var i=1 ; i<=s ; i++){ /*forでformを段数に応じて生成*/
+		if(s!=1){
+		    writeform.insertAdjacentHTML("beforeend","<h5 class='my-h5'>"+tokanzi(i)+"段目"+"</h5>");
+		}
+		var forform =
+		    '<div class="row"><div class="col-md-3"><label for="z'+(2*i-1)+'"><b>原動車の歯数:</b></label>'+
+		    '<input class="form-control my-input" type="number" step="1" id="z'+(2*i-1)+'" value=""></div>'+
+		    '<div class="col-md-3"><label for="z'+(2*i)+'"><b>従動車の歯数:</b></label>'+
+		    '<input class="form-control my-input" type="number" step="1" id="z'+(2*i)+'" value=""></div>'+
+		    '<div class="col-md-3"><label for="m'+i+'"><b>モジュール:</b></label>'+
+		    '<input class="form-control my-input" type="number" step="any" id="m'+i+'" value=""></div>'+
+		    '<div class="col-md-3>"<label for="dis'+i+'"><b>中心距離:</b></label>'+
+		    '<input class="form-control my-input" type="number" step="any" id="dis'+i+'" value=""></div></div><br>';
+		writeform.insertAdjacentHTML("beforeend",forform);
+	    }
+	}
+	
+	function tokanzi(befText){
+	    var txt = new Array("〇","一","二","三","四","五","六","七","八","九");
+	    return txt[befText];
+	}
+	
+          </script>
+	
+  </body>
+  
 </html>
