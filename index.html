@@ -1,93 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--CSS for Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!--JS for Bootstrap -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<!--CSS for Customize -->
-	<link rel="stylesheet" href="style.css">
-	
-        <title>gearCal</title>
-	
-        <script src="Gear.js"></script>  <!--歯車計算用jsファイル-->
-    </head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <body>
-        
-        <div class="container-fluid my-container">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!--CSS for Customize -->
+    <link rel="stylesheet" type=text/css href="style.css">
+    
+    <title>gearCalc</title>
+    
+    <script src="Gear.js"></script>  <!--歯車計算用jsファイル-->
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark my-nav">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">歯車諸元計算ソフト</a>
+    </nav>    
+    
+    
+    <div class="container">
+      <br>
+      <h4 class="my-h4">歯車諸元計算</h4>
+      <p id="introp">
 	<br>
-        <h1 class="myh1">歯車諸元計算ソフト</h1>
-        <p id="introp">
-	  <br>
-          標準平歯車の諸元を計算します。
-	  <br>
-	  バックラッシが適正となるよう中心距離を設定してください。
-        </p>
-	
+        標準平歯車の諸元を計算します。
 	<br>
-	
-	<div class="dropdown my-dropdown">       <!--減速機の段数を選択-->
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	バックラッシが適正となるよう中心距離を設定してください。
+      </p>
+      
+      <br>
+      
+      <div class="dropdown my-dropdown">       <!--減速機の段数を選択-->
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 	  <span id="speed"> 一段減速機</span>    <!--現在の変速機の段数を表示するspan-->
-	    <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	    <a class="dropdown-item" onclick="selectspeed(1)">一段減速機</a>
-	    <a class="dropdown-item" onclick="selectspeed(2)">二段減速機</a>
-	    <a class="dropdown-item" onclick="selectspeed(3)">三段減速機</a>
-	    <a class="dropdown-item" onclick="selectspeed(4)">四段減速機</a>
-	  </ul>
+	  <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	  <a class="dropdown-item" onclick="selectspeed(1)">一段減速機</a>
+	  <a class="dropdown-item" onclick="selectspeed(2)">二段減速機</a>
+	  <a class="dropdown-item" onclick="selectspeed(3)">三段減速機</a>
+	  <a class="dropdown-item" onclick="selectspeed(4)">四段減速機</a>
+	</ul>
+      </div>
+      
+      <br>
+      
+      <form class="form-group my-form" id="Gearform">       <!--ページを読み込む際に最初に表示されるform(selectspeed(s)によって適宜編集される)-->
+	<div class="row">
+	  <div class="col-md-3">
+	    <label for="z1">入力歯車の歯数</label>
+            <input class="form-control my-input" type="number" step="any" id="z1" value="">
+	  </div>
+	  <div class="col-md-3">
+	    <label for="z2">出力歯車の歯数</label>
+            <input class="form-control my-input" type="number" step="any" id="z2" value="">
+	  </div>
+	  <div class="col-md-3">
+	    <label for="m1">モジュール</label>
+            <input class="form-control my-input" type="number" step="any" id="m1" value="">
+	  </div>
+	  <div class="col-md-3">
+	    <label for="dis1">中心距離</label>
+            <input class="form-control my-input" type="number" step="any" id="dis1" value="">
+	  </div>
 	</div>
-	
 	<br>
 	
-        <form class="form-group my-form form-inline">       <!--ページを読み込む際に最初に表示されるform(selectspeed(s)によって適宜編集される)-->
-	  <div id="Gearform">
-	    <label for="z1">入力歯車の歯数</label>
-            <input class="form-control my-input" type="number" step="any" id="z1" value=""><br>
-	    <label for="z2">出力歯車の歯数</label>
-            <input class="form-control my-input" type="number" step="any" id="z2" value=""><br>
-	    <label for="m1">モジュール</label>
-            <input class="form-control my-input" type="number" step="any" id="m1" value=""><br>
-	    <label for="dis1">中心距離</label>
-            <input class="form-control my-input" type="number" step="any" id="dis1" value=""><br>
-	    </div>
-	    <br>
-	
-        </form>
-
-	<div id="btnarea">
+      </form>
+      
+      <div id="btnarea">
 	<button type="button" class="btn btn-dark" onclick="cal()">計算</button>
 	<a id="DLlink" download="result.txt"><button type="button" class="btn btn btn-outline-dark">結果を.txtで保存する</button></a>   <!--結果をテキストファイルでDLするボタンを配置-->
-	</div>
-        
-        <br>
-	
-	<div id="result">         <!--結果が出力されるdiv(cal()によって編集される)(DLされる内容もこれ)-->
+      </div>
+      
+      <br>
+      
+      <div id="result">         <!--結果が出力されるdiv(cal()によって編集される)(DLされる内容もこれ)-->
         <div id="result1"></div>  
 	<div id="result2"></div>
 	<div id="result3"></div>
 	<div id="result4"></div>
 	<div id="total"></div>
-	</div>
-	
-	<br>
-	</div>
-	</div>
-	
-        <script>
-	
+      </div>
+      
+      <br>
+      
+      
+      <script>
+	  
           var DLpartv = document.getElementById("DLlink").style;    
           DLpartv.visibility = "hidden";                             /*結果をDLするボタンを非表示*/
-
+	  
 	  var speed=1;                                                /*減速機の段数を示すグローバル変数(初期値は1でdropdownにて変更)*/
-
+	  
 	  
           function cal(){                                             /*計算buttonが押されたときに実行される関数*/
 	      
@@ -95,7 +106,7 @@
 	      document.getElementById("result2").innerHTML=("");
 	      document.getElementById("result3").innerHTML=("");
 	      document.getElementById("result4").innerHTML=("");
-
+	      
 	      var totalU=1;                                          /*全減速比を1で初期化*/
 	      
 	      for(var i=1;i<=speed;i++){                             /*各段ごとに計算&出力をするためforで回す*/
@@ -128,17 +139,17 @@
 		  write.insertAdjacentHTML("beforeend","法線ピッチ:"+Math.round(Gear.te(m)*10e5)/10e5+"[mm]<br>");
 		  write.insertAdjacentHTML("beforeend","噛み合い率:"+Math.round(Gear.mrt(m,z1,z2,dis)*10e5)/10e5+"<br>");
 		  
-		  if (Gear.isCnNG(m,z1,z2,dis)){                                                     　　　　　　　　　　　　　 /*バックラッシが適正か判断*/
-		      write.insertAdjacentHTML("beforeend",'<p id="CnNG">バックラッシが不適です</p>');
+		  if (Gear.isCnNG(m,z1,z2,dis)){/*バックラッシが適正か判断*/
+	              write.insertAdjacentHTML("beforeend",'<p id="CnNG">バックラッシが不適です</p>');
 		  }
 		  else{
 		      write.insertAdjacentHTML("beforeend",'<p id="CnOK">バックラッシは適正です</p>');
 		  }
-
 		  
-
+		  
+		  
 	      }
-	     
+	      
 	      document.getElementById("total").innerHTML=("全減速比:"+Math.round(totalU*10e5)/10e5+"(1/u:"+Math.round(1/totalU*10e3)/10e3+")");      /*全減速比を出力*/
               var allresult = document.getElementById("result").innerText;                         /*出力された結果を読み込み*/
               DLpartv.visibility="visible";                                                        /*結果をDLするボタンを表示*/
@@ -146,15 +157,15 @@
               var blob = new Blob([allresult],{"type":"text/plain"});                              /*結果をテキストデータのバイナリに変換*/
               var url = URL.createObjectURL(blob);                                                 /*バイナリファイルのURLを作成*/
               document.getElementById("DLlink").href=url;                                          /*結果をDLするボタンにhref属性を付与し作成したURLを与える*/
-            }
-
+          }
+	  
 	  function selectspeed(s){                                                                 /*段数選択によって発動する関数*/
-
+	      
 	      speed = s;                                                                           /*グローバル変数speedに選択された減速機の段数を代入*/
-
+	      
 	      var write = document.getElementById("speed");
 	      var writeform = document.getElementById("Gearform");
-
+	      
 	      switch(s){                                                                           /* 現在選択している減速段数を表示し段数によってformを編集する*/
 	      case 1:
 		  write.innerHTML=("一段減速機");
@@ -169,7 +180,7 @@
 		  write.innerHTML=("四段減速機");
 		  break;
 	      }
-
+	      
 	      writeform.innerHTML=("");  /*入力フォームを一度初期化*/
 	      
 	      for(var i=1 ; i<=s ; i++){ /*forでformを段数に応じて生成*/
@@ -178,13 +189,13 @@
 		  }
 		  var forform =
 		      '<label for="z'+(2*i-1)+'">入力歯車の歯数</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i-1)+'" value=""><br>'+
+		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i-1)+'" value="">'+
 		      '<label for="z'+(2*i)+'">出力歯車の歯数</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i)+'" value=""><br>'+
+		      '<input class="form-control my-input" type="number" step="any" id="z'+(2*i)+'" value="">'+
 		      '<label for="m'+i+'">モジュール</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="m'+i+'" value=""><br>'+
+		      '<input class="form-control my-input" type="number" step="any" id="m'+i+'" value="">'+
 		      '<label for="dis'+i+'">中心距離</label>'+
-		      '<input class="form-control my-input" type="number" step="any" id="dis'+i+'" value=""><br>';
+		      '<input class="form-control my-input" type="number" step="any" id="dis'+i+'" value="">';
 		  writeform.insertAdjacentHTML("beforeend",forform);
 	      }
 	  }
@@ -194,8 +205,13 @@
 	      return txt[befText];
 	  }
 	  
-        </script>    
+          </script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+</body>
 
-    </body>
-  
 </html>
