@@ -17,6 +17,10 @@ body{
     border-bottom: solid 1px #343a40;
     text-align:left;
 }
+#result{
+    text-align:center;
+}
+/*
 #result1{
     width:340px;
     margin:0 auto;
@@ -32,7 +36,7 @@ body{
 #result4{
     width:340px;
     margin:0 auto;
-}
+}*/
 #total{
     text-align:center;
 }
@@ -61,13 +65,25 @@ body{
     width:140px;
     
 }
-
+.my-row{
+/*    height:39px;
+    margin-top:20px;
+    margin-bottom:60px;*/
+}
 #btnarea{
     margin-top:30px;
 }
 #Gearform{
 }
 .my-h5{
-    margin-bottom:20px;
-    border-bottom: solid 1px #343a40;
+    padding:10px;
+    margin-top:20px;
+    margin-bottom:50px;
+    border: solid 1px #343a40;
+    border-radius: 2px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
